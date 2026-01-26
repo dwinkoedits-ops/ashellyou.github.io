@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aShell You - Execute ADB Commands on Android</title>
+    
+    <!-- Meta Description -->
+    <meta name="description" content="aShell You is a Material You designed Android app for executing ADB commands directly on your device using Shizuku, root, or wireless debugging.">
+    
+    <!-- Keywords -->
+    <meta name="keywords" content="aShell You, ADB commands, Android shell, Shizuku, wireless debugging, OTG, Material You, Android developer tools">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="aShell You - Execute ADB Commands on Android">
+    <meta property="og:description" content="A Material You designed app for your ADB needs. Run shell commands directly on your Android device.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/assets/mockups.svg">
+    <meta property="og:url" content="https://ashellyou.github.io">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="aShell You - Execute ADB Commands on Android">
+    <meta name="twitter:description" content="A Material You designed app for your ADB needs.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/assets/mockups.svg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/src/main/ic_launcher-playstore.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/src/main/ic_launcher-playstore.png" alt="aShell You Logo" class="logo-img">
+                <span>aShell You</span>
+            </a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
+                <li><a href="#requirements" class="nav-link">Requirements</a></li>
+                <li><a href="#download" class="nav-link">Download</a></li>
+                <li><a href="#community" class="nav-link">Community</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">aShell You</span>
+                </h1>
+                <p class="hero-tagline" id="tagline">
+                    <span class="typing-text"></span>
+                </p>
+                <p class="hero-description">
+                    A beautifully crafted Material You app for executing ADB commands directly on your Android device — no PC required.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest" class="btn btn-primary" target="_blank" rel="noopener">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        Download from GitHub
+                    </a>
+                    <a href="#download" class="btn btn-secondary">
+                        More Options
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">1.5k+</span>
+                        <span class="stat-label">GitHub Stars</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">46</span>
+                        <span class="stat-label">Releases</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">14</span>
+                        <span class="stat-label">Contributors</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-mockup">
+                <div class="phone-frame">
+                    <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/01.jpeg" alt="aShell You Screenshot" class="phone-screen" id="hero-screenshot">
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Powerful <span class="gradient-text">Features</span></h2>
+                <p class="section-subtitle">Everything you need to master ADB on your Android device</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Material Design 3 UI</h3>
+                    <p class="feature-description">Experience a clean, smooth, and responsive interface built with Material You design. Explore different color palettes in theme settings!</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                            <line x1="12" y1="18" x2="12.01" y2="18"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Execute Commands with Ease</h3>
+                    <p class="feature-description">Run ADB shell commands directly on your device using Shizuku, root access, or Wireless Debugging — all without needing a PC.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
+                            <line x1="6" y1="1" x2="6" y2="4"/>
+                            <line x1="10" y1="1" x2="10" y2="4"/>
+                            <line x1="14" y1="1" x2="14" y2="4"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Control Other Devices</h3>
+                    <p class="feature-description">Send ADB commands to other Android devices using OTG cable or Wireless Debugging — perfect for developers and tinkerers.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">ADB File Explorer</h3>
+                    <p class="feature-description">ADB push/pull based file manager helps you perform file operations such as delete, copy, move on connected devices.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4 17 10 11 4 5"/>
+                            <line x1="12" y1="19" x2="20" y2="19"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Continuous Commands</h3>
+                    <p class="feature-description">Seamlessly run long or continuous shell commands like logcat, top, or watch and view live updates without interruptions.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Bookmark & Save</h3>
+                    <p class="feature-description">Save frequently used commands to bookmarks and export command outputs to files for future reference or sharing.</p>
+                </div>
+            </div>
+            <div class="features-extra">
+                <div class="extra-feature">
+                    <span class="extra-icon">🔍</span>
+                    <span>Search in Output</span>
+                </div>
+                <div class="extra-feature">
+                    <span class="extra-icon">📤</span>
+                    <span>Share Instantly</span>
+                </div>
+                <div class="extra-feature">
+                    <span class="extra-icon">🔃</span>
+                    <span>Backup & Restore</span>
+                </div>
+                <div class="extra-feature">
+                    <span class="extra-icon">🌑</span>
+                    <span>AMOLED Dark Theme</span>
+                </div>
+                <div class="extra-feature">
+                    <span class="extra-icon">📚</span>
+                    <span>Command Examples</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="screenshots" id="screenshots">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">See it in <span class="gradient-text">Action</span></h2>
+                <p class="section-subtitle">Beautiful interface designed with attention to every detail</p>
+            </div>
+            <div class="carousel-container">
+                <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Previous screenshot">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <div class="carousel-track-container">
+                    <div class="carousel-track" id="carousel-track">
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/01.jpeg" alt="Screenshot 1" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/02.jpeg" alt="Screenshot 2" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/03.jpeg" alt="Screenshot 3" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/04.jpeg" alt="Screenshot 4" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/05.jpeg" alt="Screenshot 5" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/06.jpeg" alt="Screenshot 6" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/07.jpeg" alt="Screenshot 7" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/08.jpeg" alt="Screenshot 8" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/09.jpeg" alt="Screenshot 9" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpeg" alt="Screenshot 10" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/11.jpeg" alt="Screenshot 11" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="phone-frame small">
+                                <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/fastlane/metadata/android/en-US/images/phoneScreenshots/12.jpeg" alt="Screenshot 12" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Next screenshot">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
+        </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section class="requirements" id="requirements">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Getting <span class="gradient-text">Started</span></h2>
+                <p class="section-subtitle">Choose your preferred method to run ADB commands</p>
+            </div>
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <div class="requirement-icon shizuku">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>Shizuku</h3>
+                    <p>Run commands on your own device with Shizuku - no root required!</p>
+                    <a href="https://shizuku.rikka.app/" target="_blank" rel="noopener" class="requirement-link">Learn More →</a>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-icon root">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Root Access</h3>
+                    <p>Full system access with Magisk or other root solutions.</p>
+                    <span class="requirement-badge">Advanced</span>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-icon wireless">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12.55a11 11 0 0114.08 0"/>
+                            <path d="M1.42 9a16 16 0 0121.16 0"/>
+                            <path d="M8.53 16.11a6 6 0 016.95 0"/>
+                            <circle cx="12" cy="20" r="1"/>
+                        </svg>
+                    </div>
+                    <h3>Wireless Debugging</h3>
+                    <p>Connect to other devices over WiFi - no cables needed!</p>
+                    <span class="requirement-badge success">No Root</span>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-icon otg">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            <rect x="9" y="9" width="6" height="6"/>
+                            <line x1="9" y1="2" x2="9" y2="4"/>
+                            <line x1="15" y1="2" x2="15" y2="4"/>
+                            <line x1="9" y1="20" x2="9" y2="22"/>
+                            <line x1="15" y1="20" x2="15" y2="22"/>
+                        </svg>
+                    </div>
+                    <h3>OTG Connection</h3>
+                    <p>Control other Android devices using a USB OTG cable.</p>
+                    <span class="requirement-badge success">No Root</span>
+                </div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-content">
+                    <h4>Use with Caution</h4>
+                    <p>Using aShell You requires basic knowledge of ADB/Linux commands. aShell You is not responsible for any harm caused to your device by improper use of ADB commands.</p>
+                </div>
+            </div>
+            <a href="https://github.com/DP-Hridayan/aShellYou/wiki" target="_blank" rel="noopener" class="btn btn-outline">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                    <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+                </svg>
+                Read the Wiki for Setup Guides
+            </a>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download" id="download">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get <span class="gradient-text">aShell You</span></h2>
+                <p class="section-subtitle">Download from your preferred source</p>
+            </div>
+            <div class="version-badge">
+                <span>Latest Version</span>
+                <strong>v7.1.0</strong>
+            </div>
+            <div class="download-grid">
+                <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest" target="_blank" rel="noopener" class="download-card primary">
+                    <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/assets/github.png" alt="GitHub" class="download-badge">
+                    <div class="download-info">
+                        <h3>GitHub Releases</h3>
+                        <p>Get the latest APK directly</p>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+                <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell" target="_blank" rel="noopener" class="download-card">
+                    <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/assets/izzy.png" alt="IzzyOnDroid" class="download-badge">
+                    <div class="download-info">
+                        <h3>IzzyOnDroid</h3>
+                        <p>F-Droid compatible repository</p>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+                <a href="https://f-droid.org/packages/in.hridayan.ashell" target="_blank" rel="noopener" class="download-card">
+                    <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/assets/fdroid.png" alt="F-Droid" class="download-badge">
+                    <div class="download-info">
+                        <h3>F-Droid</h3>
+                        <p>Open source app store</p>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Join the <span class="gradient-text">Community</span></h2>
+                <p class="section-subtitle">Contribute, translate, and connect with other users</p>
+            </div>
+            <div class="community-grid">
+                <a href="https://github.com/DP-Hridayan/aShellYou" target="_blank" rel="noopener" class="community-card github">
+                    <div class="community-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <h3>Contribute on GitHub</h3>
+                    <p>Report issues, suggest features, or submit pull requests</p>
+                </a>
+                <a href="https://crowdin.com/project/ashellyou" target="_blank" rel="noopener" class="community-card crowdin">
+                    <div class="community-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        </svg>
+                    </div>
+                    <h3>Help Translate</h3>
+                    <p>Make aShell You available in your language on Crowdin</p>
+                </a>
+                <a href="https://t.me/AShellYou" target="_blank" rel="noopener" class="community-card telegram">
+                    <div class="community-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </div>
+                    <h3>Join Telegram</h3>
+                    <p>Chat with developers and other users</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/src/main/ic_launcher-playstore.png" alt="aShell You Logo" class="footer-logo">
+                    <div class="footer-info">
+                        <h3>aShell You</h3>
+                        <p>A Material You designed app for your ADB needs</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/DP-Hridayan/aShellYou" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://github.com/DP-Hridayan/aShellYou/wiki" target="_blank" rel="noopener">Wiki</a>
+                    <a href="https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md" target="_blank" rel="noopener">License</a>
+                    <a href="https://crowdin.com/project/ashellyou" target="_blank" rel="noopener">Translate</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Designed and developed by <a href="https://github.com/DP-Hridayan" target="_blank" rel="noopener">DP Hridayan</a> © 2024</p>
+                <p>Licensed under <a href="https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md" target="_blank" rel="noopener">GPL-3.0</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
