@@ -8,17 +8,6 @@ This repository hosts the source code for the official **aShell You** website. T
 
 **Live Demo:** [https://ashellyou.github.io](https://ashellyou.github.io)
 
-## Features ✨
-
-- **Material You Design**: Implemented with a custom CSS design system featuring deep purple/violet gradients.
-- **Responsive Layout**: Fully optimized for mobile, tablet, and desktop viewports.
-- **Interactive Animations**:
-  - Typing animation in the hero section based on app capabilities.
-  - Scroll-triggered reveal animations for cards and sections.
-  - Smooth parallax effects for background elements.
-- **Touch-Friendly Carousel**: Custom-built screenshot slider with swipe support on mobile devices.
-- **Dark Mode Aesthetic**: Default dark theme to match the app's AMOLED-friendly design.
-
 ## Tech Stack 🛠️
 
 - **HTML5**: Semantic markup for better accessibility and SEO.
