@@ -1197,8 +1197,10 @@ section {
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(10, 10, 15, 0.98);
-        backdrop-filter: blur(20px);
+        background: var(--bg-primary);
+        /* Solid background for better readability */
+        display: flex;
+        /* Ensure flex layout */
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -1209,6 +1211,8 @@ section {
         pointer-events: none;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: var(--z-modal);
+        overflow-y: auto;
+        /* Allow scrolling if menu items overflow */
     }
 
     .nav-menu.active {
@@ -1221,15 +1225,23 @@ section {
         font-size: var(--text-2xl);
         font-weight: 600;
         padding: var(--space-md);
+        color: var(--text-primary);
+        /* Ensure text is clearly visible */
     }
 
     .nav-toggle {
         display: flex;
         z-index: calc(var(--z-modal) + 1);
+        background: rgba(10, 10, 15, 0.5);
+        /* Semi-transparent background for toggle */
+        backdrop-filter: blur(4px);
+        border-radius: var(--radius-full);
     }
 
     .nav-toggle.active span:nth-child(1) {
         transform: translateY(7px) rotate(45deg);
+        background: var(--primary-light);
+        /* Highlight active state */
     }
 
     .nav-toggle.active span:nth-child(2) {
@@ -1238,6 +1250,7 @@ section {
 
     .nav-toggle.active span:nth-child(3) {
         transform: translateY(-7px) rotate(-45deg);
+        background: var(--primary-light);
     }
 
     /* Hero Section - Mobile Optimized */
@@ -1279,12 +1292,17 @@ section {
 
     /* Phone Mockup - Mobile */
     .phone-screen {
-        width: 200px;
+        width: 100%;
+        /* Responsive width */
+        max-width: 200px;
+        height: auto;
     }
 
     .phone-frame {
         padding: 10px;
         border-radius: 32px;
+        display: inline-block;
+        /* Ensure frame wraps resizing image */
     }
 
     .phone-frame::before {
@@ -1294,6 +1312,8 @@ section {
     .phone-frame.small {
         padding: 6px;
         border-radius: 24px;
+        width: auto;
+        /* Let content dictate width */
     }
 
     .phone-frame.small::before {
@@ -1303,6 +1323,8 @@ section {
     .phone-frame.small .phone-screen,
     .phone-frame.small img {
         width: 140px;
+        /* Fixed width for carousel consistency */
+        height: auto;
         border-radius: 20px;
     }
 
@@ -1367,9 +1389,12 @@ section {
         font-size: var(--text-xs);
     }
 
-    /* Carousel - Mobile Touch Friendly */
+    /* Carousel - Mobile Touch Friendly & Fixed Layout */
     .carousel-container {
         gap: var(--space-sm);
+        width: 100%;
+        overflow: hidden;
+        /* Hide overflow from container */
     }
 
     .carousel-btn {
@@ -1380,12 +1405,15 @@ section {
     }
 
     .carousel-track {
+        display: flex;
         gap: var(--space-md);
         padding: 0 var(--space-lg);
+        /* Add padding for peek effect */
         scroll-snap-type: x mandatory;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        width: 100%;
     }
 
     .carousel-track::-webkit-scrollbar {
@@ -1393,7 +1421,28 @@ section {
     }
 
     .carousel-slide {
+        flex: 0 0 auto;
+        /* Prevent shrinking */
+        width: calc(100% - 40px);
+        /* Show mostly one slide */
+        max-width: 280px;
+        /* Limit max width */
         scroll-snap-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .carousel-slide .phone-frame.small {
+        margin: 0 auto;
+    }
+
+    .carousel-slide .phone-frame.small .phone-screen,
+    .carousel-slide .phone-frame.small img {
+        width: 100%;
+        /* Fill slide container */
+        max-width: 180px;
+        /* Max image width */
+        height: auto;
     }
 
     .carousel-dots {
