@@ -1230,6 +1230,12 @@ section {
         /* Ensure text is clearly visible */
     }
 
+    .nav-menu li {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
     .nav-toggle {
         display: flex;
         z-index: calc(var(--z-modal) + 1);
