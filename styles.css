@@ -683,6 +683,7 @@ section {
 .carousel-track-container {
     overflow: hidden;
     flex: 1;
+    margin: 0 auto;
 }
 
 .carousel-track {
@@ -1389,45 +1390,32 @@ section {
         font-size: var(--text-xs);
     }
 
-    /* Carousel - Mobile Touch Friendly & Fixed Layout */
+    /* Carousel - Mobile Responsive Layout */
     .carousel-container {
         gap: var(--space-sm);
         width: 100%;
-        overflow: hidden;
-        /* Hide overflow from container */
+        overflow: visible;
     }
 
     .carousel-btn {
         width: 36px;
         height: 36px;
-        display: none;
-        /* Hide buttons on mobile, use swipe */
+        display: flex;
+    }
+
+    .carousel-track-container {
+        overflow: hidden;
     }
 
     .carousel-track {
         display: flex;
         gap: var(--space-md);
-        padding: 0 var(--space-lg);
-        /* Add padding for peek effect */
-        scroll-snap-type: x mandatory;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        width: 100%;
-    }
-
-    .carousel-track::-webkit-scrollbar {
-        display: none;
+        padding: 0;
+        transition: transform 0.5s ease;
     }
 
     .carousel-slide {
         flex: 0 0 auto;
-        /* Prevent shrinking */
-        width: calc(100% - 40px);
-        /* Show mostly one slide */
-        max-width: 280px;
-        /* Limit max width */
-        scroll-snap-align: center;
         display: flex;
         justify-content: center;
     }
@@ -1438,10 +1426,7 @@ section {
 
     .carousel-slide .phone-frame.small .phone-screen,
     .carousel-slide .phone-frame.small img {
-        width: 100%;
-        /* Fill slide container */
-        max-width: 180px;
-        /* Max image width */
+        width: 140px;
         height: auto;
     }
 

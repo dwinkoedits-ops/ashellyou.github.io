@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initCarousel();
     initSmoothScroll();
+    initGitHubStats();
 });
 
 /* ========================================
@@ -126,11 +127,6 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-
-                // Animate stat numbers if in hero section
-                if (entry.target.classList.contains('hero-stats')) {
-                    animateStats();
-                }
             }
         });
     }, observerOptions);
@@ -173,134 +169,166 @@ function initScrollAnimations() {
     });
 }
 
-function animateStats() {
-    const stats = document.querySelectorAll('.stat-number');
-
-    stats.forEach(stat => {
-        const text = stat.textContent;
-        const hasPlus = text.includes('+');
-        const hasK = text.includes('k');
-        let target = parseFloat(text.replace(/[^0-9.]/g, ''));
-
-        if (hasK) {
-            target = target * 1000;
-        }
-
-        let current = 0;
-        const increment = target / 50;
-        const duration = 1500;
-        const stepTime = duration / 50;
-
-        const counter = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(counter);
-            }
-
-            let displayValue;
-            if (hasK) {
-                displayValue = (current / 1000).toFixed(1) + 'k';
-            } else {
-                displayValue = Math.floor(current).toString();
-            }
-
-            if (hasPlus) {
-                displayValue += '+';
-            }
-
-            stat.textContent = displayValue;
-        }, stepTime);
-    });
-}
-
 /* ========================================
    Screenshot Carousel
    ======================================== */
 function initCarousel() {
+    const trackContainer = document.querySelector('.carousel-track-container');
     const track = document.getElementById('carousel-track');
     const slides = track.querySelectorAll('.carousel-slide');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
     const dotsContainer = document.getElementById('carousel-dots');
 
-    let currentIndex = 0;
-    let slidesPerView = getSlidesPerView();
+    let currentPage = 0;
+    let slidesPerPage = 1;
+    let totalPages = 1;
     let autoplayInterval;
     let isHovered = false;
 
-    // Create dots
+    // Calculate how many slides can fit without cropping
+    function calculateSlidesPerPage() {
+        if (slides.length === 0) return 1;
+
+        // Get actual container width using getBoundingClientRect for accuracy
+        const containerRect = trackContainer.getBoundingClientRect();
+        const containerWidth = containerRect.width;
+
+        const slide = slides[0];
+        const phoneFrame = slide.querySelector('.phone-frame');
+
+        // Get the actual rendered width of the phone frame
+        let slideWidth;
+        if (phoneFrame) {
+            const frameRect = phoneFrame.getBoundingClientRect();
+            slideWidth = frameRect.width;
+        } else {
+            slideWidth = slide.getBoundingClientRect().width;
+        }
+
+        // Gap between slides - matches CSS var(--space-lg) = 24px, but on mobile it's 16px
+        const computedStyle = window.getComputedStyle(track);
+        const gap = parseFloat(computedStyle.gap) || 24;
+
+        if (slideWidth === 0) return 1; // Safety check
+
+        // Calculate how many FULL slides can fit
+        // Formula: n slides need (n * slideWidth) + ((n - 1) * gap) <= containerWidth
+        // Solving for n: n <= (containerWidth + gap) / (slideWidth + gap)
+        const maxSlides = Math.floor((containerWidth + gap) / (slideWidth + gap));
+
+        return Math.max(1, Math.min(maxSlides, slides.length));
+    }
+
+    // Create dots based on total pages
     function createDots() {
         dotsContainer.innerHTML = '';
-        const totalDots = Math.ceil(slides.length / slidesPerView);
 
-        for (let i = 0; i < totalDots; i++) {
+        for (let i = 0; i < totalPages; i++) {
             const dot = document.createElement('button');
             dot.classList.add('carousel-dot');
             if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i * slidesPerView));
+            dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+            dot.addEventListener('click', () => goToPage(i));
             dotsContainer.appendChild(dot);
         }
     }
 
-    function getSlidesPerView() {
-        if (window.innerWidth < 480) return 1;
-        if (window.innerWidth < 768) return 2;
-        if (window.innerWidth < 1024) return 3;
-        return 4;
-    }
-
+    // Get the actual slide width (just the phone frame, no gap)
     function getSlideWidth() {
+        if (slides.length === 0) return 0;
         const slide = slides[0];
-        const style = window.getComputedStyle(slide);
-        const marginRight = parseFloat(style.marginRight) || 0;
-        return slide.offsetWidth + 24; // 24px is the gap
+        const phoneFrame = slide.querySelector('.phone-frame');
+        if (phoneFrame) {
+            return phoneFrame.getBoundingClientRect().width;
+        }
+        return slide.getBoundingClientRect().width;
     }
 
+    // Get the gap between slides
+    function getGap() {
+        const computedStyle = window.getComputedStyle(track);
+        return parseFloat(computedStyle.gap) || 24;
+    }
+
+    // Update carousel position and dots
     function updateCarousel() {
         const slideWidth = getSlideWidth();
-        const maxIndex = slides.length - slidesPerView;
+        const gap = getGap();
 
-        if (currentIndex > maxIndex) {
-            currentIndex = maxIndex;
-        }
-        if (currentIndex < 0) {
-            currentIndex = 0;
-        }
+        // Each page shows slidesPerPage slides
+        // The offset for page n is: n * slidesPerPage * (slideWidth + gap)
+        const offset = currentPage * slidesPerPage * (slideWidth + gap);
 
-        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        track.style.transform = `translateX(-${offset}px)`;
 
         // Update dots
         const dots = dotsContainer.querySelectorAll('.carousel-dot');
         dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === Math.floor(currentIndex / slidesPerView));
+            dot.classList.toggle('active', index === currentPage);
         });
+
+        // Update button states (optional visual feedback)
+        prevBtn.style.opacity = currentPage === 0 ? '0.5' : '1';
+        nextBtn.style.opacity = currentPage === totalPages - 1 ? '0.5' : '1';
     }
 
-    function nextSlide() {
-        const maxIndex = slides.length - slidesPerView;
-        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+    // Navigate to next page
+    function nextPage() {
+        currentPage = currentPage >= totalPages - 1 ? 0 : currentPage + 1;
         updateCarousel();
     }
 
-    function prevSlide() {
-        const maxIndex = slides.length - slidesPerView;
-        currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+    // Navigate to previous page
+    function prevPage() {
+        currentPage = currentPage <= 0 ? totalPages - 1 : currentPage - 1;
         updateCarousel();
     }
 
-    function goToSlide(index) {
-        currentIndex = index;
+    // Go to specific page
+    function goToPage(pageIndex) {
+        currentPage = Math.max(0, Math.min(pageIndex, totalPages - 1));
         updateCarousel();
     }
 
+    // Recalculate layout
+    function recalculateLayout() {
+        // First, reset any explicit width so we can measure the natural container size
+        trackContainer.style.maxWidth = '';
+
+        slidesPerPage = calculateSlidesPerPage();
+        totalPages = Math.ceil(slides.length / slidesPerPage);
+
+        // Now set an explicit max-width on the container to fit exactly slidesPerPage slides
+        const slideWidth = getSlideWidth();
+        const gap = getGap();
+
+        // The width needed for slidesPerPage slides: (slidesPerPage * slideWidth) + ((slidesPerPage - 1) * gap)
+        const exactWidth = (slidesPerPage * slideWidth) + ((slidesPerPage - 1) * gap);
+        trackContainer.style.maxWidth = `${exactWidth}px`;
+
+        // Make sure current page is valid
+        if (currentPage >= totalPages) {
+            currentPage = totalPages - 1;
+        }
+        if (currentPage < 0) {
+            currentPage = 0;
+        }
+
+        createDots();
+        updateCarousel();
+
+        console.log('Carousel recalculated:', { slidesPerPage, totalPages, slideWidth, gap, exactWidth });
+    }
+
+    // Autoplay functions
     function startAutoplay() {
         stopAutoplay();
         autoplayInterval = setInterval(() => {
             if (!isHovered) {
-                nextSlide();
+                nextPage();
             }
-        }, 3000);
+        }, 4000);
     }
 
     function stopAutoplay() {
@@ -311,12 +339,12 @@ function initCarousel() {
 
     // Event listeners
     prevBtn.addEventListener('click', () => {
-        prevSlide();
+        prevPage();
         startAutoplay();
     });
 
     nextBtn.addEventListener('click', () => {
-        nextSlide();
+        nextPage();
         startAutoplay();
     });
 
@@ -328,14 +356,16 @@ function initCarousel() {
         isHovered = false;
     });
 
-    // Handle resize
+    // Handle resize with debounce
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        slidesPerView = getSlidesPerView();
-        createDots();
-        updateCarousel();
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            recalculateLayout();
+        }, 150);
     });
 
-    // Touch support
+    // Touch support for swipe
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -354,17 +384,193 @@ function initCarousel() {
 
         if (Math.abs(diff) > swipeThreshold) {
             if (diff > 0) {
-                nextSlide();
+                nextPage();
             } else {
-                prevSlide();
+                prevPage();
             }
             startAutoplay();
         }
     }
 
-    // Initialize
-    createDots();
-    startAutoplay();
+    // Initialize after images load to get correct dimensions
+    function initAfterImagesLoad() {
+        const images = track.querySelectorAll('img');
+        let loadedCount = 0;
+        const totalImages = images.length;
+
+        if (totalImages === 0) {
+            recalculateLayout();
+            startAutoplay();
+            return;
+        }
+
+        images.forEach(img => {
+            if (img.complete) {
+                loadedCount++;
+                if (loadedCount === totalImages) {
+                    recalculateLayout();
+                    startAutoplay();
+                }
+            } else {
+                img.addEventListener('load', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        recalculateLayout();
+                        startAutoplay();
+                    }
+                });
+                img.addEventListener('error', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        recalculateLayout();
+                        startAutoplay();
+                    }
+                });
+            }
+        });
+
+        // Fallback: initialize anyway after a timeout
+        setTimeout(() => {
+            if (totalPages === 1) {
+                recalculateLayout();
+                startAutoplay();
+            }
+        }, 2000);
+    }
+
+    initAfterImagesLoad();
+}
+
+/* ========================================
+   GitHub Stats
+   ======================================== */
+function initGitHubStats() {
+    const REPO_OWNER = 'DP-Hridayan';
+    const REPO_NAME = 'aShellYou';
+
+    const starsElement = document.getElementById('github-stars');
+    const downloadsElement = document.getElementById('github-downloads');
+    const contributorsElement = document.getElementById('github-contributors');
+
+    // Helper function to format stars (with 1 decimal place)
+    function formatStars(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K';
+        }
+        return num.toString();
+    }
+
+    // Helper function to format downloads (whole numbers)
+    function formatDownloads(num) {
+        if (num >= 1000000) {
+            return Math.round(num / 1000000) + 'M+';
+        } else if (num >= 1000) {
+            return Math.round(num / 1000) + 'K+';
+        }
+        return num.toString();
+    }
+
+    // Fetch repository info (stars)
+    async function fetchRepoInfo() {
+        try {
+            const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`);
+            if (!response.ok) throw new Error('Failed to fetch repo info');
+            const data = await response.json();
+            return data.stargazers_count;
+        } catch (error) {
+            console.error('Error fetching repo info:', error);
+            return null;
+        }
+    }
+
+    // Fetch all releases and calculate total downloads
+    async function fetchTotalDownloads() {
+        try {
+            let totalDownloads = 0;
+            let page = 1;
+            let hasMore = true;
+
+            while (hasMore) {
+                const response = await fetch(
+                    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases?per_page=100&page=${page}`
+                );
+                if (!response.ok) throw new Error('Failed to fetch releases');
+                const releases = await response.json();
+
+                if (releases.length === 0) {
+                    hasMore = false;
+                } else {
+                    releases.forEach(release => {
+                        release.assets.forEach(asset => {
+                            totalDownloads += asset.download_count;
+                        });
+                    });
+                    page++;
+                    // If we got less than 100 results, we've reached the end
+                    if (releases.length < 100) {
+                        hasMore = false;
+                    }
+                }
+            }
+
+            return totalDownloads;
+        } catch (error) {
+            console.error('Error fetching downloads:', error);
+            return null;
+        }
+    }
+
+    // Fetch contributors count
+    async function fetchContributorsCount() {
+        try {
+            const response = await fetch(
+                `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contributors?per_page=1`
+            );
+            if (!response.ok) throw new Error('Failed to fetch contributors');
+
+            // Get total count from Link header
+            const linkHeader = response.headers.get('Link');
+            if (linkHeader) {
+                const match = linkHeader.match(/page=(\d+)>; rel="last"/);
+                if (match) {
+                    return parseInt(match[1], 10);
+                }
+            }
+
+            // If no pagination, count from response
+            const contributors = await response.json();
+            return contributors.length;
+        } catch (error) {
+            console.error('Error fetching contributors:', error);
+            return null;
+        }
+    }
+
+    // Update UI with fetched stats
+    async function updateStats() {
+        const [stars, downloads, contributors] = await Promise.all([
+            fetchRepoInfo(),
+            fetchTotalDownloads(),
+            fetchContributorsCount()
+        ]);
+
+        if (stars !== null && starsElement) {
+            starsElement.textContent = formatStars(stars);
+        }
+
+        if (downloads !== null && downloadsElement) {
+            downloadsElement.textContent = formatDownloads(downloads);
+        }
+
+        if (contributors !== null && contributorsElement) {
+            contributorsElement.textContent = contributors.toString();
+        }
+    }
+
+    // Fetch and update stats
+    updateStats();
 }
 
 /* ========================================
