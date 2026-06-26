@@ -21,7 +21,7 @@ To run this project locally on your machine:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/ashellyou/ashellyou.github.io.git
+   git clone https://github.com/dwinkoedits-ops/ashellyou.github.io.git
    cd ashellyou.github.io
    ```
 
@@ -53,4 +53,4 @@ Contributions specifically for the website are welcome! If you find a bug or hav
 This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
 
 ---
-*Designed and developed by [DP Hridayan](https://github.com/DP-Hridayan)*
+*Designed and developed by [ChrisH4x](https://github.com/dwinkoedits-ops)*
