@@ -1,6 +1,6 @@
 # aShellYou Website 🌐
 
-> The official promotional website for **[aShell You](https://github.com/DP-Hridayan/aShellYou)** - A Material You designed app for your ADB needs.
+> The official promotional website for **[aShell You](https://github.com/dwinkoedits-ops/aShellYou)** - A Material You designed app for your ADB needs.
 
 ## Overview 🚀
 
